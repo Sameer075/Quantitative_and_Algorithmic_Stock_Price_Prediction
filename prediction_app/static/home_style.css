@@ -1,0 +1,247 @@
+*{
+    font-family:'Gilroy';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} 
+
+.navbar-brand  img{
+    margin-left: 18%;
+    width: 100px;
+    height: 55px;
+}
+.nav-link{
+    font-weight: 600;
+}
+.nav-link:hover{
+    text-decoration:underline;
+}
+.nav-link i{
+    font-size: 19px;
+    color: #000;
+}
+
+
+#bacground{
+    width: 100%;
+    height: 50%;
+    position: relative;
+}
+
+#background img{
+    height: 110vh;
+    width: 100%;
+    border-bottom-left-radius: 35%;
+    border-bottom-right-radius: 35%;
+}
+
+#heading{
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    color: #fff;
+    
+}
+#heading h1{
+    font-size: 4rem;
+    font-weight: 600;
+}
+#heading h5{
+    font-size: 2rem;
+    font-weight: 700;
+}
+#heading p{
+    font-size: 1.3rem;
+    font-weight: 500;
+    width: 50%;
+}
+
+#features{ 
+    margin: 5%;
+}
+#features h1{
+    text-align: center;
+}
+#features p{
+    text-align: center;
+    padding: 7% 30%;
+    font-weight: 500;
+    color: #666666;
+}
+#algor{
+   height: 70vh;
+   width: 100%;
+   display: flex;
+   justify-content: space-around;
+   margin-bottom: 4%;
+   flex-wrap: wrap;
+   gap: 20px;
+   height: calc(100% - 100px) ;
+   overflow-x: auto;
+   overflow-y: hidden;
+   z-index: 10;
+}
+#algor::-webkit-scrollbar{
+    display: none;
+}
+.card{
+    border: 2px solid #e9e0e0;
+    height: 65vh;
+    display: inline-block;
+    
+    overflow: hidden;
+    border-top-right-radius: 20%;
+  
+
+}
+.card p{
+    text-align: center;
+    padding: 0 7%;
+    font-style: italic;
+}
+.card h5{
+    text-align: center;
+    padding: 0 5%;
+    font-style: italic;
+}
+.card a{
+    position: absolute;
+    bottom: 5%;
+}
+.card img{
+    margin-left: 30%;
+}
+.card:hover{
+    background-image: url("images/service-bg.webp");
+    color: #fff;
+    background-position: top; 
+    
+}
+.card img{
+    width: 80px;
+    height: 80px;
+}
+#testimonial-div{
+    display:inline-flex;
+}
+#testimonial-heading{
+    background: linear-gradient(98.3deg, rgba(46, 4, 129, 0.979) 10.6%, rgb(0, 157, 255) 97.7%);
+    color:#fff;
+    height: 100vh;
+    width: 70%;
+    text-align: center;
+    padding: 18%;
+    padding-top: 12%;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+
+}
+.fontIcon{
+    height: 50px;
+    width: 50px;
+  
+}
+#testimonial{
+   
+   background: linear-gradient(98.3deg, rgba(46, 4, 129, 0.979) 10.6%, rgb(0, 157, 255) 97.7%);
+   color: #fff;
+   text-align: center;
+   padding: 9%;
+   margin-left: 5%;
+   border-radius: 3%;
+}
+#testimonial p{
+    text-align: center;
+    font-style: italic;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.carousel{
+    width: 100%;
+    position: relative;
+}
+.carousel-control-next{
+    position: absolute;
+    bottom: 30%;
+    right: -28%;
+    
+}
+.carousel-control-prev{
+    position: absolute;
+    top: 30%;
+    left: 100%;
+}
+#contacts{
+    display:inline-flex;
+}
+#left{
+    
+   background: linear-gradient(98.3deg, rgba(46, 4, 129, 0.979) 10.6%, rgb(0, 157, 255) 97.7%);
+    color: #fff;
+    height: 100vh;
+    width: 70%;
+    padding: 17%;
+    border-top-right-radius: 30%;
+    border-bottom-right-radius: 30%;
+    font-weight: 500;
+    margin-top: 3%;
+}
+#contc{
+    
+   background: linear-gradient(98.3deg, rgba(46, 4, 129, 0.979) 10.6%, rgb(0, 157, 255) 97.7%);
+    height: 70vh;
+    width: 50%;
+    margin-top: 8%;
+    margin-right: 3%;
+    padding: 2%; 
+    border-radius: 5%;
+    
+}
+#contc form{
+    width: 90%;
+}
+
+input, button, textarea{
+    margin: 5%;
+}
+textarea{
+    resize: none;
+}
+#footer-section{
+    margin-top: 5%;
+}
+#footer{
+    width: 100%;
+    height: 40vh;
+    padding-top: 2%;
+    background: linear-gradient(115deg, rgb(0, 0, 0) 5.8%, rgb(14, 85, 178) 112.6%);
+    text-align: center;
+}
+#social i{
+    color: #fff;
+    font-size: 35px;
+    padding: 5%;
+}
+#copy-right{
+    background: linear-gradient(115deg, rgb(0, 0, 0) 5.8%, rgb(14, 132, 178) 112.6%);
+    color: #fff;
+    
+}
+
+.hide {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+
+.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.bg-dotted{
+    z-index: -1;
+    position: absolute;
+    top: 25%;
+}

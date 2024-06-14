@@ -1,0 +1,25 @@
+*{
+    font-family:'Gilroy';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body{
+    background: linear-gradient(98.3deg, rgba(46, 4, 129, 0.979) 10.6%, rgb(0, 157, 255) 97.7%);
+    color: #fff;
+    align-items: center;
+}
+#welcome{
+    background-color: blue;
+    margin: 2% 12%;
+    text-align: center;
+    padding: 7%;
+    width: 80%;
+    height: 50vh;
+    box-shadow: 10px 10px;
+}
+.btn{
+    margin:2% 40%;
+    font-size: 20px;
+    font-weight: 600;
+}

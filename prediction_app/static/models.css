@@ -1,0 +1,106 @@
+*{
+    font-family:'Gilroy';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} 
+table{
+    color: #000;
+}
+button{
+    margin: 3%;
+}
+body {
+    background: linear-gradient(98.3deg, rgba(46, 4, 129, 0.979) 10.6%, rgb(0, 157, 255) 97.7%);
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.card {
+    background-color: #fff;
+    color: #000;
+    margin-top: 20px;
+}
+
+.card-title {
+    font-weight: bold;
+    color: #fff;
+    background-color: darkblue;
+    text-align: center;
+}
+
+input-field select {
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.btn {
+    background-color: #26a69a;
+    margin-top: 10px;
+}
+
+.level-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 2px solid #ddd;
+}
+
+.positive-levels, .negative-levels {
+    flex: 1;
+    margin: 10px;
+}
+
+.positive-levels {
+    border-right: 2px solid #ddd;
+    padding-right: 10px;
+}
+
+.level-name {
+    font-weight: bold;
+}
+
+.level-value {
+    margin-left: 5px;
+}
+
+/* Customize line colors based on Gaussian curve colors */
+.positive-levels .level-value {
+    color: #B80000;
+}
+
+.negative-levels .level-value {
+    color: #B80000;
+}
+
+#dataWidget ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#dataWidget li {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+h4 {
+    font-size: 1.5rem;
+    color: rgb(51, 139, 0);
+    margin-bottom: 10px;
+}
+/* Chart title styles */
+.chart-title {
+    text-align: center;
+    font-size: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 2px solid black;
+}

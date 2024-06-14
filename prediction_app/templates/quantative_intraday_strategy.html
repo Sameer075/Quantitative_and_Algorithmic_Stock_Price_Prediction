@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Strategy Signals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .container {
+            padding: 20px;
+            width: 80%;
+        }
+        .card-container {
+            margin-top: 20px;
+        }
+        .table-container {
+            max-height: 500px; /* Adjust the max-height as needed */
+            overflow-y: auto;
+            width: 100%;
+            position: relative;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd; /* Light gray border */
+            padding: 8px;
+            text-align: center;
+            color: black; /* Set text color to black for better visibility */
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left; /* Left-align table headings */
+            position: sticky;
+            top: 0; /* Keeps the header at the top */
+            z-index: 1; /* Ensures the header is above other content */
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Alternating row color */
+        }
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        .hidden {
+            display: none;
+        }
+        .refresh-button {
+            float: right; /* Align refresh button to the right */
+            margin-left: 10px; /* Add space between refresh button and table heading */
+        }
+        /* .loading {
+            display: none;
+        } */
+        .btn.loading::after {
+            content: '....';
+            display: inline-block;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .highlight {
+            color: red; /* Highlight text color */
+            background-color: yellow; /* Highlight background color */
+        }
+        .clickable {
+            color: blue;
+            background-color: yellow;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+{% load static %}
+<link rel="icon" href="{% static 'favicon1.ico' %}">
+<body style="background: linear-gradient(98.3deg, rgba(46, 4, 129, 0.979) 10.6%, rgb(0, 157, 255) 97.7%); text-align: center; color: #fff;">
+    <div class="container">
+        <h3 class="center-align" style="box-shadow: 0px 0px 80px #bebebe59; background-color: #ffffff3b; backdrop-filter: blur(9px); border: 1px solid #ffffff5a;">Quantitative Intraday Strategy Signals</h3>
+        <div class="row">
+            <div class="input-field col s12 m6 offset-m3">
+                <select id="stockSymbol" class="browser-default">
+                    {% for symbol in stockSymbols %}
+                    <option>{{ symbol }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col s12 center-align">
+                <button id="strategyButton" class="btn waves-effect waves-light" type="submit" name="action">Get Strategy Result</button>
+            </div>
+        </div>
+    </div>
+    <!-- <a id="gotoTradingView" class="btn waves-effect waves-light" target="_blank">GoTo TradingView</a> -->
+    <div class="container card-container">
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <h4 id="maTitle" style="color: #000;padding: 2%; background-color: rgb(25, 184, 184);">Quantitative Analysis</h4>
+                    <div class="card-content">
+                        <h5  style="color: #000; text-align: left;padding-bottom: 3%; margin-top: 0%;">Moving Average Signals <button id="refreshButtonMa" class="btn waves-effect waves-light refresh-button" type="button" name="action">Refresh</button></h5>
+                        <div class="table-container">
+                            <!-- Moving Average Table will be inserted here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container card-container">
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <h4 id="vwapTitle" style="color: #000;padding: 2%; background-color: rgb(25, 184, 184);">Quantitative Analysis</h4>
+                    <div class="card-content">
+                        <h5 style="color: #000; text-align: left;padding-bottom: 3%; margin-top: 0%;">VWAP-Based Signals <button id="refreshButtonVwap" class="btn waves-effect waves-light refresh-button" type="button" name="action">Refresh</button></h5>
+                        <div class="table-container">
+                            <!-- VWAP Table will be inserted here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var currentStockSymbol = '';
+
+            function setLoading(button, isLoading) {
+                if (isLoading) {
+                    button.addClass('loading');
+                } else {
+                    button.removeClass('loading');
+                }
+            }
+
+            // Event listener for clicks on cells within index 7 of the VWAP table
+            $('.table-container:eq(1)').on('click', 'td:nth-child(8)', function() {
+                // Extract the stock symbol from the clicked row
+                var stockSymbol = $(this).closest('tr').find('td.hidden').text(); // Assuming the stock symbol is in the hidden column
+                // Only proceed if the clicked cell's text is not "None"
+                if ($(this).text() !== "None") {
+                    // Construct the Tradingview URL with the extracted stock symbol
+                    var tradingviewURL = 'https://in.tradingview.com/symbols/NSE-' + stockSymbol;
+                    // Open the URL in a new tab/window
+                    window.open(tradingviewURL, '_blank');
+                }
+            });
+
+            function updateTitles(stockSymbol) {
+                $('#maTitle').text(stockSymbol + ' Quantitative Analysis');
+                $('#vwapTitle').text(stockSymbol + ' Quantitative Analysis');
+                // Update the GoTo link URL to TradingView with the selected stock symbol
+                $('#gotoTradingView').attr('href', 'https://in.tradingview.com/symbols/NSE-' + stockSymbol);
+            }
+
+            function fetchStrategyResult(stockSymbol) {
+                var strategyButton = $('#strategyButton');
+                var refreshButtonMa = $('#refreshButtonMa');
+                var refreshButtonVwap = $('#refreshButtonVwap');
+
+                setLoading(strategyButton, true);
+                if (refreshButtonMa.length) setLoading(refreshButtonMa, true);
+                if (refreshButtonVwap.length) setLoading(refreshButtonVwap, true);
+
+                $.ajax({
+                    url: "{% url 'strategy_result' %}",
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ 'stockSymbol': stockSymbol }),
+                    success: function(response) {
+                        var maSignals = response.ma_signals;
+                        var vwapSignals = response.vwap_signals;
+
+                        var maTable = '<table><thead><tr><th>Date</th><th>Time</th><th>Close Price</th><th>MA-100</th><th>MA-400</th><th>MA-Signal</th><th>Position</th><th>Trend</th></tr></thead><tbody>';
+                        maSignals.forEach(function(row) {
+                            maTable += '<tr>';
+                            row.forEach(function(cell) {
+                                maTable += '<td>' + cell + '</td>';
+                            });
+                            maTable += '</tr>';
+                        });
+                        maTable += '</tbody></table>';
+
+                        var vwapTable = '<table><thead><tr><th>Date</th><th>Time</th><th>Close Price</th><th>VWAP</th><th>ATR</th><th>RSI</th><th>Market Sentiment</th><th>Signal</th><th>Entry Level</th><th>Stop Loss</th><th>Profit Target</th></tr></thead><tbody>';
+                        vwapSignals.forEach(function(row) {
+                            var highlightRow = row[8] !== "None" || row[9] !== "None" || row[10] !== "None";
+                            var highlightColumns1to7 = highlightRow; // Initialize to the state of columns 8 through 10
+                            vwapTable += highlightRow ? '<tr class="highlight">' : '<tr>';
+                            row.forEach(function(cell, index) {
+                                if (index >= 0 && index <= 6 && highlightColumns1to7) {
+                                    // Highlight columns 1 through 6 only if any of columns 8 through 10 are highlighted
+                                    vwapTable += '<td class="highlight">' + cell + '</td>';
+                                } else if (index === 7 && cell !== "None") {
+                                    // Apply style to cells in index 7 with text other than "None"
+                                    vwapTable += '<td class="clickable">' + cell + '</td>';
+                                    highlightColumns1to7 = true; // Set to true if any of columns 8 through 10 are highlighted
+                                } else if (index >= 8 && index <= 10 && cell !== "None") {
+                                    // Highlight columns 8 through 10 only when the cell value is not "None"
+                                    vwapTable += '<td class="highlight">' + cell + '</td>';
+                                    highlightColumns1to7 = true; // Set to true if any of columns 8 through 10 are highlighted
+                                } else if (index < row.length - 1) { // Exclude the last column from being added to the table
+                                    vwapTable += '<td>' + cell + '</td>';
+                                }
+                            });
+                            vwapTable += '<td class="hidden">' + row[row.length - 1] + '</td>'; // Add the stock symbol as a hidden cell
+                            vwapTable += '</tr>';
+                        });
+                        vwapTable += '</tbody></table>';
+
+                        $('.table-container:eq(0)').html(maTable); // Insert Moving Average Table
+                        $('.table-container:eq(1)').html(vwapTable); // Insert VWAP Table
+
+                        setLoading(strategyButton, false);
+                        if (refreshButtonMa.length) setLoading(refreshButtonMa, false);
+                        if (refreshButtonVwap.length) setLoading(refreshButtonVwap, false);
+                    },
+                    error: function(error) {
+                        console.log('Error:', error);
+                        setLoading(strategyButton, false);
+                        if (refreshButtonMa.length) setLoading(refreshButtonMa, false);
+                        if (refreshButtonVwap.length) setLoading(refreshButtonVwap, false);
+                    }
+                });
+            }
+
+            $('#strategyButton').click(function() {
+                currentStockSymbol = $('#stockSymbol').val();
+                updateTitles(currentStockSymbol);
+                fetchStrategyResult(currentStockSymbol);
+            });
+
+            // Add event listeners for dynamically generated refresh buttons within the tables
+            $(document).on('click', '#refreshButtonMa, #refreshButtonVwap', function() {
+                if (currentStockSymbol) {
+                    fetchStrategyResult(currentStockSymbol);
+                } else {
+                    alert('Please select a stock symbol first.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

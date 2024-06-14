@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bell-curve Intraday Strategy</title>
+    <!-- Include CSS links for styling -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+
+<style>
+ 
+</style>
+{% load static %}
+    
+<link rel="stylesheet" href="{% static 'models.css' %}">
+<link rel="icon" href="{% static 'favicon1.ico' %}">
+<body>
+    <div class="container">
+        <h3 class="center-align">Bellcurve Intraday Strategy</h3>
+       
+        <div class="row">
+            <div class="input-field col s12 m6 offset-m3">
+                <select id="stockSymbol" class="browser-default">
+                    {% for symbol in stockSymbols %}
+                    <option>{{ symbol }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col s12 center-align">
+                <button id="levelButton" class="btn waves-effect waves-light" type="submit" name="action">Get Levels</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Candle Chart of the Original Dataset</span>
+                <div id="candlestickChart"></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Gaussian Curve Supply and Demand Level</span>
+                <div id="positiveCurve"></div>
+                <div id="negativeCurve"></div>
+                <div id="dataWidget"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include JavaScript file for handling interactions -->
+    <script src="{% static 'display_levels.js' %}"></script>
+    <!-- Include Materialize JavaScript for functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
+
+<!-- <style>
+    .level-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .positive-levels, .negative-levels {
+        flex: 1;
+        text-align: left;
+    }
+
+    .level-name {
+        font-weight: bold;
+    }
+
+    .level-value {
+        margin-left: 5px;
+    }
+
+    /* Customize line colors based on Gaussian curve colors */
+    .positive-levels .level-value {
+        color: #B80000; /* Adjust based on your color scheme */
+    }
+
+    .negative-levels .level-value {
+        color: #B80000; /* Adjust based on your color scheme */
+    }
+
+    body {
+        background: linear-gradient(98.3deg, rgba(46, 4, 129, 0.979) 10.6%, rgb(0, 157, 255) 97.7%);
+        text-align: center;
+        color: #fff;
+    }
+
+    .widget-header {
+        text-align: left;
+        background-color: floralwhite;
+        color: black;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .widget-content {
+        background-color: white;
+        color: black;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+</style> -->
+
+<!-- <body>
+    <div class="container">
+        <h3>Stock Price Prediction using Intraday Model</h3>
+        <div class="input-field col s12">
+            <select id="stockSymbol" class="browser-default">
+                {% for symbol in stockSymbols %}
+                <option>{{ symbol }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button id="levelButton" class="btn waves-effect waves-light" type="submit" name="action">Get Levels</button>
+        <div>
+            <h5 class="widget-header">Candle Chart of the Original Dataset</h5>
+            <div class="col s12 m6">
+                <div id="candlestickChart"></div>
+            </div>
+        </div>
+
+        <div>
+            <h5 class="widget-header">Gaussian Curve Supply and Demand Level</h5>
+            <div class="col s12 m6">
+                <div id="positiveCurve"></div>
+                <div id="negativeCurve"></div>
+            </div>
+        </div>
+
+        <div>
+            <h5 class="widget-header">Levels</h5>
+            <div class="col s12 m6">
+                <div id="dataWidget" class="widget-content"></div>
+            </div>
+        </div>
+    </div>
+
+     Include JavaScript file for handling interactions 
+    <script src="{% static 'display_levels.js' %}"></script>
+    
+</body> -->

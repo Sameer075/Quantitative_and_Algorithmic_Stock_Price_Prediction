@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ensemble Model</title>
+    <!-- Include CSS links for styling -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+{% load static %}
+    
+<link rel="stylesheet" href="{% static 'models.css' %}">
+<link rel="icon" href="{% static 'favicon1.ico' %}">
+
+<body  style="background: linear-gradient(98.3deg, rgba(46, 4, 129, 0.979) 10.6%, rgb(0, 157, 255) 97.7%); text-align: center; color: #fff;">
+    <div class="container">
+        <h3 style="text-align: center;">Stock Price Prediction using Ensemble Model</h3>
+        <select id="stockSymbol" class="browser-default">
+            {% for symbol in stockSymbols %}
+            <option>{{ symbol }}</option>
+            {% endfor %}
+        </select>
+        <button id="forecastButton" class="btn waves-effect waves-light" type="submit" name="action" data-model="ensemble">Result</button>
+        <div>
+            <h5 style="text-align: center;color: #000; background-color: floralwhite;">Candle Chart of the Original Dataset</h5>
+            <div class="col s12 m6">
+                <div id="candlestickChart"></div>
+            </div>
+        </div>
+        <div>
+            <h5 style="text-align: center; color: #000; background-color: floralwhite;">Prediction and Actual Price Comparison</h5>
+            <div class="col s12 m6">
+                <div id="forecastChart"></canvas>
+            </div>
+        </div>
+        <h6 style="text-align: center;color: #000; background-color: floralwhite;">Evaluation Metrics of Ensemble Model</h6>
+        <div id="evaluationMetrics"></div>
+        <div id="charts" style="display: flex; flex-wrap: wrap;">
+            <div id="pieChart" style="width: 50%;"></div>
+            <div id="scatterContainer" style="width: 50%;"></div>
+        </div>
+    </div>
+
+    <!-- Include JavaScript file for handling interactions -->
+    <script src="{% static 'display_chart.js' %}"></script>
+    
+</body>
+</html>

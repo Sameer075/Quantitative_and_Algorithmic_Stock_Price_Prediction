@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantitativeEdge</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" charset="utf-8"></script>
+
+    <!-- Add Font Awesome CDN -->
+  
+
+</head>
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'home_style.css' %}">
+    <link rel="icon" href="{% static 'favicon1.ico' %}">
+
+<body>
+  {% load socialaccount %}
+  <nav class="navbar navbar-expand-lg bg-light fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#home"><img src="{% static 'logo.png' %}" alt="Logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#models">Models</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contacts">Contacts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/community">Community</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {% if picture_url %}
+                <img src="{{ picture_url }}" alt="User Picture" style="width: 50px; height: 45px; border-radius: 50%;">
+              {% endif %}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="logout" style="font-weight: 600;">Logout</a></li>
+            </ul>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <section id="home" class="hide">
+        <div id="background">
+            <img src="{% static 'images/bg.avif' %}" alt="" >
+            <img src="{% static 'images/market-profile.png' %}" alt="" style="width: 60%;height: 50vh; position: absolute; top: 35%;left: 40%; opacity:4" >
+        </div>
+        <div id="heading">
+          <h1>Trade Mathematically,<br>
+            <span  class="two"></span></h1>
+            <h5>Where efficiency meets success</h5>
+            <p>Our goal is to simplify the investment process,
+              making it as effortless as possible, even if you're new to investing.</p>
+        </div>
+        
+    </section>
+
+    <!-- Models Section -->
+    <section id="models"  >
+        <div id="features">
+            <h1>Explore Our Models</h1>
+            <p>Unlock your investment potential with our unique tools.
+                We make it easier for you to enter the intricate realm of capital trading with revolutionary ML-powered capabilities.</p>
+        </div>
+        <div id="algor-container">
+        <div id="algor">
+          <div class="card" style="width: 15rem;">
+          <img src="{% static 'images/2103601.png' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Linear Regression Model</h5>
+            <p class="card-text">Simple and interpretable model for linear relationships. Ideal for straightforward stock price predictions.</p>
+            <a href="/linear_regression_model" class="btn btn-primary">Run Model</a>
+          </div>
+        </div>
+        <div class="card" style="width: 15rem;">
+          <img src="{% static 'images/random.png' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Random Forest Model</h5>
+            <p class="card-text">Robust and handles complex data well. Suitable for non-linear stock price predictions with high accuracy.</p>
+            <a href="/random_forest_model" class="btn btn-primary">Run Model</a>
+          </div>
+        </div>
+        <div class="card" style="width: 15rem;">
+          <img src="{% static 'images/ensemble.png' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Ensemble Model</h5>
+            <p class="card-text">Combines multiple models for better accuracy. Great for users seeking the best overall performance.</p>
+            <a href="/ensemble_model" class="btn btn-primary">Run Model</a>
+          </div>
+        </div>
+        <div class="card" style="width: 15rem; ">
+          <img src="{% static 'images/markov.png' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Markovian Model</h5>
+            <p class="card-text">
+              A Markov model is a mathematical system that predict transitions between states according to certain probabilistic rules.</p>
+            <a href="/markovian_model" class="btn btn-primary">Run Model</a>
+          </div>
+        </div>
+          <div class="card" style="width: 15rem; ">
+            <img src="{% static 'images/bellcurve.png' %}" class="card-img-top" alt="..." style="width: 130px; margin-left: 20%;">
+            <div class="card-body">
+              <h5 class="card-title">Bell-curve Intraday Strategy</h5>
+              <p class="card-text">
+                Intraday strategies to capitalize on short-term movements using mathematical analysis. Which employes Black-Scholes Model for Volatility Pricing.</p>
+              <a href="/intraday_strategy" class="btn btn-primary">Get Gaussian Levels</a>
+            </div>
+        </div>
+        <div class="card" style="width: 15rem; ">
+          <img src="{% static 'images/buysell.jpg' %}" class="card-img-top" alt="..." style="width: 130px; margin-left: 20%;">
+          <div class="card-body">
+            <h5 class="card-title">Intraday Strategy Signals</h5>
+            <p class="card-text">
+              Quantitative intraday trading signals based on moving averages and Volume Weighted Average Price (VWAP), aiding stock market analysis and decision-making.</p>
+            <a href="/quantative_intraday_strategy" class="btn btn-primary">Get Strategy Result</a>
+          </div>
+      </div>
+      </div>
+        </div>
+    
+       
+    </section>
+
+    <!-- Testimonial Section -->
+    <section id="testimoni">
+      <div id="testimonial-div">
+     
+    
+      <div id="testimonial">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <p>“Trading with QuantitativeEdge has been a game-changer for me. The platform's versatility and the array of analytical tools provide a comprehensive trading experience. The real-time market data ensures I never miss a beat. Kudos to the QuantitativeEdge team for a top-notch platform”</p>
+              <h5>@ Yogita Sharma</h5>
+            </div>
+            <div class="carousel-item">
+              <p>“I've tried various trading platforms, and QuantitativeEdge stands out for its reliability. The platform's stability, coupled with the excellent customer service, gives me the confidence to execute trades seamlessly. QuantitativeEdge has become my go-to for all things trading.”</p>
+              <h5>@ Asad Amjad</h5>
+            </div>
+            <div class="carousel-item">
+              <p>“A QuantitativeEdge has transformed my trading experience. The platform's intuitive design and robust features make it a standout choice. I appreciate the constant updates and the support from the QuantitativeEdge team. Trading has never been this smooth.”</p>
+              <h5>@ Shyam Sundhar Vashishtha</h5>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon fontIcon" aria-hidden="true"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon fontIcon" aria-hidden="true"></span>
+          </button>
+        </div>
+  </div>
+  <div id="testimonial-heading">
+    <h4>TESTIMONIALS</h4>
+    <h1>What they say about us?</h1>
+  </div>
+</div>
+  </section>
+    <section id="contacts">
+      <div id="left">
+        <h4>Feel free to contact us anytime</h4>
+        <p>Mail your query at quantitative-edge@gmail.com
+          Mobile : +91-6203509277, +91-7049850866
+          ADDRESS :
+          B-160A, Sushant Lok-I, Adityapur, Sarikela, 122009</p>
+      </div>
+      <div id="contc">
+        <form action="" method="post">
+          {% csrf_token %}
+          <input type="email" name="emailID" class="form-control" placeholder="Your Email">
+          <textarea name="message" class="form-control" id="" cols="30" rows="5" placeholder="Your Message"></textarea>
+          <button class="btn btn-primary" type="submit">Send Your Message</button>
+        </form>
+      </div>
+    </section>
+ 
+    <section id="footer-section">
+      <div id="footer">
+        <div id="social">
+          <i class="fa-brands fa-facebook"></i>
+          <i class="fa-brands fa-instagram"></i>
+          <i class="fa-brands fa-square-x-twitter"></i>
+          <i class="fa-brands fa-youtube"></i>
+        </div>
+        <div id="copy-right">
+          &copy QuantitativeEdge <span class="year"></span>
+        </div>
+      </div>
+    </section>
+    <script>
+      var year=new Date().getFullYear();
+      document.querySelector('.year').innerHTML=year;
+     
+      const options = {
+        threshold: 0.1 
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+          } else {
+            entry.target.classList.remove('show');
+          }
+        });
+      }, options);
+      
+      const sections = document.querySelectorAll('section');
+      sections.forEach((section) => {
+        section.classList.add('hide');
+        observer.observe(section);
+      });
+      
+    var text="Not Emotionally"
+
+    var centerText=document.querySelector(".two")
+    var i=1
+
+    function typingEffect(){
+        centerText.innerHTML=text.slice(0,i);
+        i>text.length ? i=1: i++;
+        setTimeout(typingEffect,200)
+      }
+    typingEffect();
+
+    
+    </script>
+</body>
+</html>
